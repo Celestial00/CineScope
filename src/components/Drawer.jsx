@@ -52,7 +52,7 @@ export default function FilterNavbar() {
 
   return (
     <nav className={`w-full py-4 cursor-pointer dark:border-gray-700`}>
-      <div className="flex justify-between items-center px-6">
+      <div className="flex justify-between items-center ">
         {/* Desktop Menu */}
         <ul
           className="hidden md:flex items-center gap-6 font-medium"

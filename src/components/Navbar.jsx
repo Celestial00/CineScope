@@ -1,23 +1,32 @@
 import { Search, User, Sun, Moon, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
+  
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Apply dark mode globally via <html> class
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("darkMode") === "true";
+  });
+
+
   useEffect(() => {
+    const root = document.documentElement;
+
     if (darkMode) {
-      document.documentElement.classList.add("dark");
+      root.classList.add("dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.remove("dark");
     }
+
+    localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
   return (
     <>
-      {/* Overlay for Modal */}
       {modalOpen && (
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
@@ -25,17 +34,17 @@ export default function Navbar() {
         />
       )}
 
-      {/* Navbar */}
-      <nav className="w-full py-4 flex items-center justify-between relative z-50 bg-white text-gray-800 dark:bg-[#060d17] dark:text-white">
-        {/* Logo + Links */}
+      <nav className="w-full py-4 flex items-center justify-between relative z-40 bg-white text-gray-800 dark:bg-[#060d17] dark:text-white">
         <div className="flex gap-6 items-center justify-between w-full md:w-auto">
-          <div className="text-2xl font-semibold ">🎬 MovieBox</div>
+          <div className="text-2xl font-semibold">🎬 MovieBox</div>
 
-          <ul className="hidden md:flex gap-5 font-medium ">
+          <ul className="hidden md:flex gap-5 font-medium">
+            <Link to="/">
+              <li className="cursor-pointer text-sm text-gray-400 hover:text-blue-500 transition">
+                Home
+              </li>
+            </Link>
             <li className="cursor-pointer text-sm text-gray-400 hover:text-blue-500 transition">
-              Home
-            </li>
-            <li className="cursor-pointer  text-sm text-gray-400 hover:text-blue-500 transition">
               Movies
             </li>
             <li className="cursor-pointer text-sm text-gray-400 hover:text-blue-500 transition">
@@ -46,7 +55,6 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden p-2 ml-auto"
@@ -59,11 +67,12 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Right Icons */}
         <div className="hidden md:flex items-center gap-4">
-          <div className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-            <Search className="h-4 w-4" />
-          </div>
+          <Link to="/search">
+            <div className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+              <Search className="h-4 w-4" />
+            </div>
+          </Link>
 
           <button
             onClick={() => setDarkMode(!darkMode)}
@@ -84,9 +93,8 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
         {menuOpen && (
-          <ul className="md:hidden absolute top-20 left-0 w-full flex flex-col gap-4 bg-white dark:bg-gray-900 text-center py-6 shadow-lg z-50 text-gray-800 dark:text-white">
+          <ul className="md:hidden absolute top-20 left-0 w-full flex flex-col gap-4 bg-white dark:bg-gray-900 text-center py-6 shadow-lg z-100 text-gray-800 dark:text-white">
             <li className="hover:text-blue-500">Home</li>
             <li className="hover:text-blue-500">Movies</li>
             <li className="hover:text-blue-500">Series</li>
@@ -104,7 +112,6 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-xl shadow-2xl w-[90%] max-w-md p-6 relative">
@@ -117,13 +124,13 @@ export default function Navbar() {
             <h3 className="text-2xl font-semibold mb-4">User Menu</h3>
             <ul className="space-y-3 text-lg">
               <li className="hover:text-blue-500 cursor-pointer">
-                📌 Wishlist
+                Wishlist
               </li>
               <li className="hover:text-blue-500 cursor-pointer">
-                ❤️ Favorites
+                Favorites
               </li>
               <li className="text-red-500 hover:text-red-700 cursor-pointer">
-                🚪 Logout
+                Logout
               </li>
             </ul>
           </div>

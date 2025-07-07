@@ -63,7 +63,7 @@ const mockMovies = [
 const Home = () => {
   return (
     <>
-      <Navbar />
+   
       <Carousel />
       <Drawer />
       <MovieGrid />

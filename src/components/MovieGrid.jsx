@@ -18,7 +18,7 @@ const dummyMovies = [
 
 export default function MovieGrid() {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 p-4">
+    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3   ">
       {dummyMovies.map((url, i) => (
         <MovieCard key={i} image={url} isShow={i % 3 === 0} />
       ))}

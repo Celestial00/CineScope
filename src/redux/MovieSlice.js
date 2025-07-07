@@ -7,7 +7,7 @@ const MoviesApi = createAsyncThunk("mov/fetchall", async () => {
       { method: "GET" }
     );
     const result = await res.json();
-    return result;
+    return result.results; 
   } catch (err) {
     throw new Error(err.message);
   }

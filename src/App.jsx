@@ -1,22 +1,14 @@
-// import React, { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { MoviesApi } from "./redux/MovieSlice";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
 
-export default function App() {
-  // don't worry about these
-
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(MoviesApi());
-  // }, [dispatch]);
-
-  // const state = useSelector((state) => state.MoviesState.movies);
-  // console.log(state);
-
+function App() {
   return (
-    <div>
-      <h1>Popular Movies</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;

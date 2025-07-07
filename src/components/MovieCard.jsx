@@ -1,17 +1,29 @@
-import React from 'react';
+import { useState } from "react";
+import { Heart } from "lucide-react";
 
-const MovieCard = ({ movie }) => {
+export default function MovieCard({ image, isShow = false }) {
+  const [liked, setLiked] = useState(false);
+
   return (
-    <div className="bg-white dark:bg-gray-800 p-2 rounded shadow hover:shadow-lg transition">
-      <img
-        src={movie.poster_path}
-        alt={movie.title}
-        className="w-full h-64 object-cover rounded mb-2"
-      />
-      <h3 className="text-lg font-semibold">{movie.title}</h3>
-      <p className="text-sm">⭐ {movie.vote_average} | 📅 {movie.release_date}</p>
+    <div className="relative rounded overflow-hidden w-full h-56 xl:h-64 group shadow hover:shadow-md transition">
+      <img src={image} alt="movie" className="w-full h-full object-cover" />
+
+      {/* Heart Button */}
+      <button
+        onClick={() => setLiked(!liked)}
+        className="absolute top-2 right-2 bg-transparent backdrop-blur p-1 rounded-full hover:scale-110 transition"
+      >
+        <Heart
+          className={`h-5 w-5 ${
+            liked ? "fill-red-500 text-red-500" : "text-gray-500"
+          }`}
+        />
+      </button>
+
+      {/* Movie/Show Label */}
+      <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+        {isShow ? "Show" : "Movie"}
+      </div>
     </div>
   );
-};
-
-export default MovieCard;
+}

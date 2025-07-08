@@ -1,6 +1,6 @@
 import MovieGrid from "../components/MovieGrid";
 import { useDispatch, useSelector } from "react-redux";
-import { SeriesAPi } from "../redux/movieSlice";
+import { SeriesAPi } from "../redux/MovieSlice";
 import { useEffect, useState } from "react";
 import Drawer from "../components/Drawer";
 

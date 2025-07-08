@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MovieGrid from "../components/MovieGrid";
 import { useDispatch, useSelector } from "react-redux";
-import { MoviesApi } from "../redux/movieSlice";
+import { MoviesApi } from "../redux/MovieSlice";
 import Drawer from "../components/Drawer";
 
 export default function Movie() {

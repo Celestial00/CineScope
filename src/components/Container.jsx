@@ -1,6 +1,6 @@
 import MovieGrid from "./MovieGrid";
 import { useDispatch, useSelector } from "react-redux";
-import { MoviesApi } from "../redux/movieSlice";
+import { MoviesApi } from "../redux/MovieSlice";
 import { useEffect } from "react";
 
 export default function Container() {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
-import { MoviesApi, SeriesAPi } from "../redux/movieSlice";
+import { MoviesApi, SeriesAPi } from "../redux/MovieSlice";
 import MovieGrid from "../components/MovieGrid";
 import { Menu, X, ChevronDown, Moon, Sun } from "lucide-react";
 

@@ -21,7 +21,7 @@ const images = [
 
 export default function Carousel() {
   const [current, setCurrent] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
+
   const [topMovies, setTopMovies] = useState([]);
 
   useEffect(() => {
@@ -42,7 +42,6 @@ export default function Carousel() {
     fetchTopMovies();
   }, []);
 
-  console.log(topMovies);
 
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % images.length);

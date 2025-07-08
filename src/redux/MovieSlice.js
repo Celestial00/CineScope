@@ -19,10 +19,29 @@ const MoviesApi = createAsyncThunk("mov/fetchall", async () => {
 });
 const initialState = {
   movies: [],
+  series: [],
   wishlist: [],
   loading: false,
   err: null,
 };
+
+const SeriesAPi = createAsyncThunk("series/api", async () => {
+  try {
+    const results = [];
+
+    for (let page = 1; page <= 3; page++) {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/tv/popular?api_key=b7fe2c24f174676b490b42de62837330&page=${page}`
+      );
+      const data = await res.json();
+      results.push(...data.results);
+    }
+
+    return results.slice(0, 50);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+});
 
 const MovieSlice = createSlice({
   name: "movies",
@@ -44,9 +63,25 @@ const MovieSlice = createSlice({
       state.err = action.error.message;
       state.loading = false;
     });
+
+    // series api
+
+    builder.addCase(SeriesAPi.pending, (state, action) => {
+      state.loading = true;
+      state.err = null;
+    });
+
+    builder.addCase(SeriesAPi.fulfilled, (state, action) => {
+      state.series = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(SeriesAPi.rejected, (state, action) => {
+      state.err = action.error.message;
+      state.loading = false;
+    });
   },
 });
 
 export const { getMovies } = MovieSlice.actions;
 export const MoviesState = MovieSlice.reducer;
-export { MoviesApi };
+export { MoviesApi, SeriesAPi };

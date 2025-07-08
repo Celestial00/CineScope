@@ -1,13 +1,14 @@
 import Carousel from "../components/Carousel";
+import Container from "../components/Container";
 import Drawer from "../components/Drawer";
-import MovieGrid from "../components/MovieGrid";
 
 const Home = () => {
   return (
     <>
       <Carousel />
       <Drawer />
-      <MovieGrid />
+      <Container />
+ 
     </>
   );
 };

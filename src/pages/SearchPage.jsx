@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import MovieCard from "../components/MovieCard";
+import { useSelector, useDispatch } from "react-redux";
+import { MoviesApi, SeriesAPi } from "../redux/movieSlice";
+import MovieGrid from "../components/MovieGrid";
 
 const genres = [
   "Action",
@@ -13,22 +15,55 @@ const genres = [
   "Adventure",
 ];
 
-const dummyResults = [
-  "https://image.tmdb.org/t/p/w500/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg",
-  "https://image.tmdb.org/t/p/w500/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg",
-  "https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg",
-  "https://image.tmdb.org/t/p/w500/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
-  "https://image.tmdb.org/t/p/w500/tDexQyu6FWltcd0VhEDK7uib42f.jpg",
-  "https://image.tmdb.org/t/p/w500/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg",
-];
+const genreMapping = {
+  28: "Action",
+  18: "Drama",
+  35: "Comedy",
+  27: "Horror",
+  878: "Sci-Fi",
+  53: "Thriller",
+  14: "Fantasy",
+  12: "Adventure",
+};
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [option, setOption] = useState("both");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(SeriesAPi());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(MoviesApi());
+  }, [dispatch]);
+
+  const filterData = (items) =>
+    items.filter((item) => {
+      const title = item.title || item.name || "";
+      const genreMatch = selectedGenre
+        ? item.genre_ids?.some((id) =>
+            selectedGenre
+              .toLowerCase()
+              .includes(genreMapping[id]?.toLowerCase() || "")
+          )
+        : true;
+
+      return title.toLowerCase().includes(query.toLowerCase()) && genreMatch;
+    });
+
+  const stateMov = useSelector((state) => state.MoviesState.movies);
+  const stateSer = useSelector((state) => state.MoviesState.series);
+
+  const handleGenre = (genre) => {
+    genres !== null ? setSelectedGenre(genre) : "";
+  };
 
   return (
     <div className="w-full  mx-auto p-4 space-y-6">
-      {/* Search Bar */}
       <div className="relative">
         <input
           type="text"
@@ -40,14 +75,40 @@ export default function SearchPage() {
         <Search className="absolute top-1/2 right-5 -translate-y-1/2 text-gray-400" />
       </div>
 
-      {/* Genre Tags */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex items-center  flex-wrap gap-3">
+        <div className="flex gap-4">
+          <p
+            onClick={() => setOption("both")}
+            className={`cursor-pointer text-[15px]  transition hover:text-blue-500 ${
+              option === "both" ? "text-blue-500" : "text-gray-400"
+            }`}
+          >
+            Both
+          </p>
+          <p
+            onClick={() => setOption("show")}
+            className={`cursor-pointer text-[15px] transition hover:text-blue-500 ${
+              option === "show" ? "text-blue-500" : "text-gray-400"
+            }`}
+          >
+            Show
+          </p>
+          <p
+            onClick={() => setOption("movie")}
+            className={`cursor-pointer text-[15px] transition hover:text-blue-500 ${
+              option === "movie" ? "text-blue-500" : "text-gray-400"
+            }`}
+          >
+            Movie
+          </p>
+        </div>
+
+        <div className=" w-0.5 h-8 bg-gray-600 "></div>
+
         {genres.map((genre) => (
           <button
             key={genre}
-            onClick={() =>
-              setSelectedGenre(genre === selectedGenre ? "" : genre)
-            }
+            onClick={() => handleGenre(genre)}
             className={`px-4 py-2 rounded-full text-sm transition border dark:border-gray-700 ${
               selectedGenre === genre
                 ? "bg-blue-600 text-white"
@@ -59,16 +120,33 @@ export default function SearchPage() {
         ))}
       </div>
 
-      {/* Results Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
-        {dummyResults.map((url, i) => (
-          <MovieCard
-            key={i}
-            image={url}
-            showType={i % 2 === 0 ? "Show" : null}
-          />
-        ))}
-      </div>
+      {option === "both" && (
+        <>
+          <div className="">
+            <h1 className="text-2xl my-4"> Movies.</h1>
+            <MovieGrid Fav={filterData(stateMov)} />
+          </div>
+
+          <div className="">
+            <h1 className="text-2xl my-4"> Shows.</h1>
+            <MovieGrid Fav={filterData(stateSer)} />
+          </div>
+        </>
+      )}
+
+      {option === "movie" && (
+        <div className="">
+          <h1 className="text-2xl my-4"> Movies.</h1>
+          <MovieGrid Fav={filterData(stateMov)} />
+        </div>
+      )}
+
+      {option === "show" && (
+        <div className="">
+          <h1 className="text-2xl my-4"> Shows.</h1>
+          <MovieGrid Fav={filterData(stateSer)} />
+        </div>
+      )}
     </div>
   );
 }

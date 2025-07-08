@@ -63,7 +63,7 @@ export default function MovieDetailPage() {
   };
 
   const genreTags = genreids.map((id) => genreMap[id] || "Unknown");
-  console.log(genreTags);
+
 
   return (
     <div className="w-full space-y-6 pb-10">

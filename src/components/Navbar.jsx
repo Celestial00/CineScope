@@ -217,7 +217,8 @@ export default function Navbar() {
                   <h1 className="text-4xl font-bold">Welcome.</h1>
                   <p className="mt-1 text-gray-400">
                     {" "}
-                    Find all information about you require with single touch.
+                    Find all information about any move you like with a single
+                    touch.
                   </p>
                 </div>
 
@@ -257,9 +258,11 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="">
-                <div className="mt-4  w-full h-15 flex justify-center item ">
+                <div className="mt-4  w-full h-25 flex justify-center   ">
                   {" "}
-                  <p>Hi, {user.displayName}</p>{" "}
+                  <p className=" text-5xl  font-bold ">
+                    Hi, {user.displayName}
+                  </p>{" "}
                 </div>
 
                 <Link to="/favorites">

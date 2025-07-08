@@ -139,7 +139,8 @@ export default function MovieCard({
 
         {/* Movie/Show Label */}
        
-     
+   
+      </div>
 
       {/* Modal */}
       {modalOpen && (

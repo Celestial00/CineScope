@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { MoviesApi, SeriesAPi } from "../redux/movieSlice";
+import { MoviesApi, SeriesAPi } from "../redux/MovieSlice";
 import MovieGrid from "../components/MovieGrid";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -60,13 +60,11 @@ export default function Favorite() {
     }
   };
 
-
-
   return (
     <div>
       <h1 className="text-5xl font-bold my-10">Your Favorites.</h1>
 
-      <MovieGrid Fav={favo}  />
+      <MovieGrid Fav={favo} />
     </div>
   );
 }

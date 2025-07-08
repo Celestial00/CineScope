@@ -139,10 +139,7 @@ export default function MovieCard({
 
         {/* Movie/Show Label */}
        
-        <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
-          {isShow ? "Show" : "Movie"}
-        </div>
-      </div>
+     
 
       {/* Modal */}
       {modalOpen && (

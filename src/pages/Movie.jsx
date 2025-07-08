@@ -56,7 +56,7 @@ export default function Movie() {
 
   return (
     <>
-      <h1 className="text-5xl font-bold my-10">Movies.</h1>
+      <h1 className="text-5xl font-bold my-3">Movies.</h1>
       <Drawer onFilterChange={handleFilterChange} />
       <MovieGrid Fav={filteredMovies} />
     </>

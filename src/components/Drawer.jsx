@@ -53,8 +53,8 @@ export default function Drawer({ onFilterChange }) {
   return (
     <nav className={`w-full py-4 cursor-pointer dark:border-gray-700`}>
       <div className="flex justify-between">
-        <ul className="hidden md:flex items-center gap-6 font-medium" ref={dropdownRef}>
-          {/* Genre Dropdown */}
+        <ul className=" md:flex items-center gap-6 font-medium" ref={dropdownRef}>
+       
           <li className="relative text-sm text-gray-400 transition">
             <button onClick={() => toggleDropdown("genre")} className="flex items-center gap-1 hover:text-blue-500">
               Genre <ChevronDown className="w-4 h-4" />
@@ -76,7 +76,7 @@ export default function Drawer({ onFilterChange }) {
             )}
           </li>
 
-          {/* Date Dropdown */}
+         
           <li className="relative text-sm text-gray-400 transition">
             <button onClick={() => toggleDropdown("date")} className="flex items-center gap-1 hover:text-blue-500">
               Release Year <ChevronDown className="w-4 h-4" />
@@ -98,7 +98,7 @@ export default function Drawer({ onFilterChange }) {
             )}
           </li>
 
-          {/* Rating Dropdown */}
+         
           <li className="relative text-sm text-gray-400 transition">
             <button onClick={() => toggleDropdown("rating")} className="flex items-center gap-1 hover:text-blue-500">
               Age Rating <ChevronDown className="w-4 h-4" />
@@ -121,7 +121,7 @@ export default function Drawer({ onFilterChange }) {
           </li>
         </ul>
 
-        {/* Reset */}
+     
         <div
           onClick={resetFilters}
           className="flex gap-1 justify-center items-center px-5 md:px-0 dark:text-gray-400 text-sm text-gray-400 transition hover:text-blue-500 cursor-pointer"

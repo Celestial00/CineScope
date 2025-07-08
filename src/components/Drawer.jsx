@@ -17,22 +17,13 @@ export default function FilterNavbar() {
   const dropdownRef = useRef(null);
   const drawerRef = useRef(null);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setDropdowns({ genre: false, date: false, rating: false });
       }
-      if (
-        drawerRef.current &&
-        !drawerRef.current.contains(e.target)
-      ) {
+      if (drawerRef.current && !drawerRef.current.contains(e.target)) {
         setMenuOpen(false);
       }
     };
@@ -52,78 +43,100 @@ export default function FilterNavbar() {
 
   return (
     <nav className={`w-full py-4 cursor-pointer dark:border-gray-700`}>
-      <div className="flex justify-between items-center ">
-        {/* Desktop Menu */}
-        <ul
-          className="hidden md:flex items-center gap-6 font-medium"
-          ref={dropdownRef}
-        >
-          <li className="cursor-pointer text-sm text-gray-400 transition hover:text-blue-500">All</li>
-          <li className="cursor-pointer text-sm text-gray-400 transition hover:text-blue-500">Movies</li>
-          <li className="cursor-pointer text-sm text-gray-400 transition hover:text-blue-500">Shows</li>
+      <div className="flex  justify-between ">
+        <div className="flex justify-between items-center ">
+          {/* Desktop Menu */}
+          <ul
+            className="hidden md:flex items-center gap-6 font-medium"
+            ref={dropdownRef}
+          >
+            <li className="cursor-pointer text-sm text-gray-400 transition hover:text-blue-500">
+              All
+            </li>
+            <li className="cursor-pointer text-sm text-gray-400 transition hover:text-blue-500">
+              Movies
+            </li>
+            <li className="cursor-pointer text-sm text-gray-400 transition hover:text-blue-500">
+              Shows
+            </li>
 
-          {/* Genre Dropdown */}
-          <li className="relative text-sm text-gray-400 transition">
-            <button
-              onClick={() => toggleDropdown("genre")}
-              className="flex items-center gap-1 hover:text-blue-500"
-            >
-              Genre <ChevronDown className="w-4 h-4" />
-            </button>
-            {dropdowns.genre && (
-              <ul className="absolute bg-white dark:bg-[#0a151f] rounded mt-2 p-2 w-40 z-40 shadow-md">
-                {genres.map((item) => (
-                  <li key={item} className="hover:text-blue-500 cursor-pointer px-2 py-1">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
+            {/* Genre Dropdown */}
+            <li className="relative text-sm text-gray-400 transition">
+              <button
+                onClick={() => toggleDropdown("genre")}
+                className="flex items-center gap-1 hover:text-blue-500"
+              >
+                Genre <ChevronDown className="w-4 h-4" />
+              </button>
+              {dropdowns.genre && (
+                <ul className="absolute bg-white dark:bg-[#0a151f] rounded mt-2 p-2 w-40 z-40 shadow-md">
+                  {genres.map((item) => (
+                    <li
+                      key={item}
+                      className="hover:text-blue-500 cursor-pointer px-2 py-1"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
 
-          {/* Date Dropdown */}
-          <li className="relative text-sm text-gray-400 transition">
-            <button
-              onClick={() => toggleDropdown("date")}
-              className="flex items-center gap-1 hover:text-blue-500"
-            >
-              Release year <ChevronDown className="w-4 h-4" />
-            </button>
-            {dropdowns.date && (
-              <ul className="absolute bg-white dark:bg-[#0a151f] rounded mt-2 p-2 w-40 z-40 shadow-md">
-                {dates.map((item) => (
-                  <li key={item} className="hover:text-blue-500 cursor-pointer px-2 py-1">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
+            {/* Date Dropdown */}
+            <li className="relative text-sm text-gray-400 transition">
+              <button
+                onClick={() => toggleDropdown("date")}
+                className="flex items-center gap-1 hover:text-blue-500"
+              >
+                Release year <ChevronDown className="w-4 h-4" />
+              </button>
+              {dropdowns.date && (
+                <ul className="absolute bg-white dark:bg-[#0a151f] rounded mt-2 p-2 w-40 z-40 shadow-md">
+                  {dates.map((item) => (
+                    <li
+                      key={item}
+                      className="hover:text-blue-500 cursor-pointer px-2 py-1"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
 
-          {/* Rating Dropdown */}
-          <li className="relative text-sm text-gray-400 transition">
-            <button
-              onClick={() => toggleDropdown("rating")}
-              className="flex items-center gap-1 hover:text-blue-500"
-            >
-              Age Rating <ChevronDown className="w-4 h-4" />
-            </button>
-            {dropdowns.rating && (
-              <ul className="absolute bg-white dark:bg-[#0a151f] rounded mt-2 p-2 w-40 z-40 shadow-md">
-                {ratings.map((item) => (
-                  <li key={item} className="hover:text-blue-500 cursor-pointer px-2 py-1">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        </ul>
+            {/* Rating Dropdown */}
+            <li className="relative text-sm text-gray-400 transition">
+              <button
+                onClick={() => toggleDropdown("rating")}
+                className="flex items-center gap-1 hover:text-blue-500"
+              >
+                Age Rating <ChevronDown className="w-4 h-4" />
+              </button>
+              {dropdowns.rating && (
+                <ul className="absolute bg-white dark:bg-[#0a151f] rounded mt-2 p-2 w-40 z-40 shadow-md">
+                  {ratings.map((item) => (
+                    <li
+                      key={item}
+                      className="hover:text-blue-500 cursor-pointer px-2 py-1"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          </ul>
 
-        {/* Mobile Toggle */}
-        <button onClick={() => setMenuOpen(true)} className="md:hidden px-4">
-          <Menu />
-        </button>
+          {/* Mobile Toggle */}
+          <button onClick={() => setMenuOpen(true)} className="md:hidden px-4">
+            <Menu />
+          </button>
+        </div>
+
+        <div className=" flex gap-1 justify-center items-center px-5 md:px-0  dark:text-gray-400 text-sm text-gray-400 transition hover:text-blue-500  ">
+          <p>Reset</p>
+          <X className="h-4 w-4" />
+        </div>
       </div>
 
       {/* Backdrop */}
@@ -139,7 +152,9 @@ export default function FilterNavbar() {
         } md:hidden`}
       >
         <div className="flex justify-between items-center px-4 py-4 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="font-bold text-lg text-gray-800 dark:text-white">Filters</h2>
+          <h2 className="font-bold text-lg text-gray-800 dark:text-white">
+            Filters
+          </h2>
           <button onClick={() => setMenuOpen(false)}>
             <X />
           </button>
@@ -183,14 +198,7 @@ export default function FilterNavbar() {
             </ul>
           </details>
 
-          <li className="pt-4">
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
-            >
-              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-          </li>
+        
         </ul>
       </div>
     </nav>

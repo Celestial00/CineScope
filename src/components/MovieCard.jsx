@@ -7,28 +7,28 @@ export default function MovieCard({ image, isShow = false }) {
 
   return (
     <>
-      <Link to="/detail">
-        <div className="relative rounded overflow-hidden w-full h-56 xl:h-64 group shadow hover:shadow-md transition">
+      <div className="relative rounded overflow-hidden w-full h-56 xl:h-64 group shadow hover:shadow-md transition">
+        <Link to="/detail">
           <img src={image} alt="movie" className="w-full h-full object-cover" />
+        </Link>
 
-          {/* Heart Button */}
-          <button
-            onClick={() => setLiked(!liked)}
-            className="absolute top-2 right-2 bg-transparent backdrop-blur p-1 rounded-full hover:scale-110 transition"
-          >
-            <Heart
-              className={`h-5 w-5 ${
-                liked ? "fill-red-500 text-red-500" : "text-gray-500"
-              }`}
-            />
-          </button>
+        {/* Heart Button */}
+        <button
+          onClick={() => setLiked(!liked)}
+          className="absolute top-2 right-2 bg-transparent backdrop-blur p-1 rounded-full hover:scale-110 transition"
+        >
+          <Heart
+            className={`h-5 w-5 ${
+              liked ? "fill-red-500 text-red-500" : "text-gray-500"
+            }`}
+          />
+        </button>
 
-          {/* Movie/Show Label */}
-          <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
-            {isShow ? "Show" : "Movie"}
-          </div>
+        {/* Movie/Show Label */}
+        <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+          {isShow ? "Show" : "Movie"}
         </div>
-      </Link>
+      </div>
     </>
   );
 }

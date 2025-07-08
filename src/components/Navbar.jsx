@@ -9,7 +9,7 @@ export default function Navbar() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("darkMode") === "true";
+    return localStorage.getItem("darkMode") === "true" ;
   });
 
 
@@ -113,7 +113,7 @@ export default function Navbar() {
       </nav>
 
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
+        <div className="fixed inset-0 flex items-center justify-center z-100">
           <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-xl shadow-2xl w-[90%] max-w-md p-6 relative">
             <button
               onClick={() => setModalOpen(false)}

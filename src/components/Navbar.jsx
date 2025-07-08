@@ -138,18 +138,63 @@ export default function Navbar() {
         </div>
 
         {menuOpen && (
-          <ul className="md:hidden absolute top-20 left-0 w-full flex flex-col gap-4 bg-white dark:bg-gray-900 text-center py-6 shadow-lg z-100 text-gray-800 dark:text-white">
-            <li className="hover:text-blue-500">Home</li>
-            <li className="hover:text-blue-500">Movies</li>
-            <li className="hover:text-blue-500">Series</li>
+          <ul className="md:hidden absolute top-18 left-0 w-full flex flex-col gap-4 bg-white dark:bg-gray-900 text-center px-7 py-6 shadow-lg z-100 text-gray-800 dark:text-white">
+            <Link to="/">
+              <li className=" w-full h-15 flex justify-center items-center cursor-pointer bg-gray-200 dark:bg-gray-800   rounded-2xl">
+                Home
+              </li>
+            </Link>
 
-            <li className="flex justify-center items-center gap-3 px-6">
-              <button onClick={() => setDarkMode(!darkMode)}>
-                {darkMode ? <Sun /> : <Moon />}
-              </button>
-              <Search className="h-5 w-5" />
-              <button onClick={() => setModalOpen(true)}>
-                <User className="h-5 w-5" />
+            <Link to="/movies">
+              <li className=" w-full h-15 flex justify-center items-center cursor-pointer bg-gray-200 dark:bg-gray-800   rounded-2xl">
+                Movies
+              </li>
+            </Link>
+
+            <Link to="series">
+              <li className=" w-full h-15 flex justify-center items-center cursor-pointer bg-gray-200 dark:bg-gray-800   rounded-2xl">
+                Series
+              </li>
+            </Link>
+
+            <li className="flex flex-col justify-center items-center gap-3 ">
+              <div className="flex gap-2 w-full ">
+                <button
+                  className="flex-1 h-14 flex justify-center items-center cursor-pointer bg-gray-200 dark:bg-gray-800 rounded-2xl"
+                  onClick={() => setDarkMode(!darkMode)}
+                >
+                  {darkMode ? <Sun /> : <Moon />}
+                </button>
+
+                <Link
+                  className="flex-1 h-14 flex justify-center items-center cursor-pointer bg-gray-200 dark:bg-gray-800 rounded-2xl"
+                  to="/search"
+                >
+                  <button c>
+                    <Search className="h-5 w-5" />
+                  </button>
+                </Link>
+              </div>
+
+              <button
+                className=" w-full h-15 flex justify-center items-center cursor-pointer  bg-gray-200 dark:bg-gray-800   rounded-2xl"
+                onClick={() => setModalOpen(true)}
+              >
+                {user === null ? (
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="p-2 text-blue-500 cursor-pointer rounded-sm hover:bg-gray-800 dark:hover:bg-gray-700"
+                  >
+                    Login
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                  >
+                    <User className="h-4 w-4" />
+                  </button>
+                )}
               </button>
             </li>
           </ul>

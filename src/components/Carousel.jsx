@@ -44,11 +44,11 @@ export default function Carousel() {
 
 
   const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % images.length);
+    setCurrent((prev) => (prev + 1) % topMovies.length);
   };
 
   const prevSlide = () => {
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+    setCurrent((prev) => (prev - 1 + topMovies.length) % topMovies.length);
   };
 
   return (
@@ -97,7 +97,7 @@ export default function Carousel() {
 
       {/* Dots */}
       <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
-        {images.map((_, i) => (
+        {topMovies.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}

@@ -13,7 +13,9 @@ export default function Container() {
 
   return (
     <>
-      <MovieGrid Fav={Movies} />
+      <div className="my-5">
+        <MovieGrid Fav={Movies} />
+      </div>
     </>
   );
 }

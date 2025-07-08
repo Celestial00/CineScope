@@ -180,7 +180,7 @@ export default function MovieCard({
                             className="w-full flex justify-center my-6 items-center"
                             onClick={handleLogin}
                           >
-                            <div className="p-2 flex justify-center items-center gap-4 cursor-pointer bg-gray-800 rounded-2xl">
+                            <div className="p-2 flex justify-center items-center gap-4 cursor-pointer bg-gray-200 dark:bg-gray-800  rounded-2xl">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 x="0px"

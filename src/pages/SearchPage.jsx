@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import { MoviesApi, SeriesAPi } from "../redux/movieSlice";
 import MovieGrid from "../components/MovieGrid";
+import { Menu, X, ChevronDown, Moon, Sun } from "lucide-react";
 
 const genres = [
   "Action",
@@ -62,6 +63,12 @@ export default function SearchPage() {
     genres !== null ? setSelectedGenre(genre) : "";
   };
 
+  const ClearAll = () => {
+    setQuery("");
+    setSelectedGenre("");
+    setOption("both");
+  };
+
   return (
     <div className="w-full  mx-auto p-4 space-y-6">
       <div className="relative">
@@ -118,6 +125,14 @@ export default function SearchPage() {
             {genre}
           </button>
         ))}
+
+        <div
+          onClick={ClearAll}
+          className=" flex gap-1 justify-center items-center px-5 md:px-0  cursor-pointer dark:text-gray-400 text-sm text-gray-400 transition hover:text-blue-500  "
+        >
+          <p>Reset</p>
+          <X className="h-4 w-4" />
+        </div>
       </div>
 
       {option === "both" && (

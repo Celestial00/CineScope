@@ -5,7 +5,7 @@ export default function MovieGrid({ Fav, Type }) {
       {Fav?.length > 0 ? (
         Fav.map((mov) => (
           <MovieCard
-            key={mov.id}
+         
             uid={mov.id}
             image={`https://image.tmdb.org/t/p/w500${mov.poster_path}`}
             title={mov.original_title}

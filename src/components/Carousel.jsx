@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, User } from "lucide-react";
 
 const images = [
@@ -22,6 +22,27 @@ const images = [
 export default function Carousel() {
   const [current, setCurrent] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const [topMovies, setTopMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchTopMovies = async () => {
+      try {
+        const res = await fetch(
+          "https://api.themoviedb.org/3/movie/popular?api_key=b7fe2c24f174676b490b42de62837330"
+        );
+        const data = await res.json();
+
+        const topFive = data.results.slice(0, 5);
+        setTopMovies(topFive);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchTopMovies();
+  }, []);
+
+  console.log(topMovies);
 
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % images.length);
@@ -38,21 +59,27 @@ export default function Carousel() {
         className="flex transition-transform duration-700 ease-in-out h-full"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
-        {images.map((slide, index) => (
-          <div key={index} className="min-w-full h-full relative">
-            <img
-              src={slide.url}
-              alt={`Slide ${index}`}
-              className="w-full h-full object-cover brightness-[.6]"
-            />
+        {topMovies === null ? (
+          <p>loading...</p>
+        ) : (
+          topMovies.map((mov, index) => (
+            <div key={index} className="min-w-full h-full relative">
+              <img
+                src={`https://image.tmdb.org/t/p/w500${mov.backdrop_path}`}
+                alt={`Slide ${index}`}
+                className="w-full h-full object-cover brightness-[.6]"
+              />
 
-            {/* Title & Description */}
-            <div className="absolute bottom-6 left-4 md:left-10 bg-black/50 p-4 md:p-5 rounded-lg max-w-[90%] md:max-w-xl text-white backdrop-blur-sm">
-              <h2 className="text-xl md:text-2xl font-bold mb-1">{slide.title}</h2>
-              <p className="text-sm md:text-base">{slide.description}</p>
+              {/* Title & Description */}
+              <div className="absolute bottom-6 left-4 md:left-20 bg-black/50 p-4 md:p-5 rounded-lg max-w-[90%] md:max-w-xl text-white backdrop-blur-sm">
+                <h2 className="text-xl md:text-2xl font-bold mb-1">
+                  {mov.title}
+                </h2>
+                <p className="text-sm md:text-base">{mov.overview}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Arrows */}
@@ -81,34 +108,6 @@ export default function Carousel() {
           />
         ))}
       </div>
-
-  
-
-      {/* Modal */}
-      {modalOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-            onClick={() => setModalOpen(false)}
-          />
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-xl shadow-2xl w-[90%] max-w-md p-6 relative">
-              <button
-                onClick={() => setModalOpen(false)}
-                className="absolute top-2 right-3 text-lg font-bold text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-              >
-                &times;
-              </button>
-              <h3 className="text-2xl font-semibold mb-4">User Menu</h3>
-              <ul className="space-y-3 text-lg">
-                <li className="hover:text-blue-500 cursor-pointer">📌 Wishlist</li>
-                <li className="hover:text-blue-500 cursor-pointer">❤️ Favorites</li>
-                <li className="text-red-500 hover:text-red-700 cursor-pointer">🚪 Logout</li>
-              </ul>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 }

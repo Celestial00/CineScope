@@ -1,14 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export default function MovieCard({ image, isShow = false }) {
+export default function MovieCard({
+  uid,
+  image,
+  title,
+  overview,
+  bg,
+  genreids,
+  isShow = false,
+}) {
   const [liked, setLiked] = useState(false);
+
+  console.log();
 
   return (
     <>
       <div className="relative rounded overflow-hidden w-full h-56 xl:h-64 group shadow hover:shadow-md transition">
-        <Link to="/detail">
+        <Link
+          to="/detail"
+          state={{
+            uid: uid,
+            title: title,
+            desc: overview,
+            bg: bg,
+            genreids: genreids,
+          }}
+        >
           <img src={image} alt="movie" className="w-full h-full object-cover" />
         </Link>
 

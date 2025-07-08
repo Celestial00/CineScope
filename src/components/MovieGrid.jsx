@@ -1,27 +1,33 @@
 import MovieCard from "./MovieCard";
-
-const dummyMovies = [
-  "https://image.tmdb.org/t/p/w500/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg",
-  "https://image.tmdb.org/t/p/w500/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg",
-  "https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg",
-  "https://image.tmdb.org/t/p/w500/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
-  "https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg",
-  "https://image.tmdb.org/t/p/w500/tDexQyu6FWltcd0VhEDK7uib42f.jpg",
-  "https://image.tmdb.org/t/p/w500/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg",
-  "https://image.tmdb.org/t/p/w500/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
-   "https://image.tmdb.org/t/p/w500/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
-  "https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg",
-  "https://image.tmdb.org/t/p/w500/tDexQyu6FWltcd0VhEDK7uib42f.jpg",
-  "https://image.tmdb.org/t/p/w500/6DrHO1jr3qVrViUO6s6kFiAGM7.jpg",
-  "https://image.tmdb.org/t/p/w500/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
-];
+import { useDispatch, useSelector } from "react-redux";
+import { MoviesApi } from "../redux/movieSlice";
+import { useEffect } from "react";
 
 export default function MovieGrid() {
+  const Movies = useSelector((state) => state.MoviesState.movies);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(MoviesApi());
+  }, [dispatch]);
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3   ">
-      {dummyMovies.map((url, i) => (
-        <MovieCard key={i} image={url} isShow={i % 3 === 0} />
-      ))}
+    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
+      {Movies?.length > 0 ? (
+        Movies.map((mov) => (
+          <MovieCard
+            key={mov.id}
+            uid={mov.id}
+            image={`https://image.tmdb.org/t/p/w500${mov.poster_path}`}
+            title={mov.original_title}
+            overview={mov.overview}
+            bg={`https://image.tmdb.org/t/p/w500${mov.backdrop_path}`}
+            genreids={mov.genre_ids}
+          />
+        ))
+      ) : (
+        <p className="col-span-full text-center">No movies found.</p>
+      )}
     </div>
   );
 }

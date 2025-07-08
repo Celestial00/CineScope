@@ -6,6 +6,7 @@ import Mainlayout from "./layout/Mainlayout";
 import Favorite from "./pages/Favorite";
 import Movie from "./pages/Movie";
 import Series from "./pages/Series";
+import NotFound from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Route path="/Movies" element={<Movie />} />
           <Route path="/Series" element={<Series />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

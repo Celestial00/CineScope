@@ -42,7 +42,6 @@ export default function Carousel() {
     fetchTopMovies();
   }, []);
 
-
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % topMovies.length);
   };
@@ -64,7 +63,7 @@ export default function Carousel() {
           topMovies.map((mov, index) => (
             <div key={index} className="min-w-full h-full relative">
               <img
-                src={`https://image.tmdb.org/t/p/w500${mov.backdrop_path}`}
+                src={`https://image.tmdb.org/t/p/original${mov.backdrop_path}`}
                 alt={`Slide ${index}`}
                 className="w-full h-full object-cover brightness-[.6]"
               />

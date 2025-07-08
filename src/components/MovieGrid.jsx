@@ -5,12 +5,11 @@ export default function MovieGrid({ Fav, Type }) {
       {Fav?.length > 0 ? (
         Fav.map((mov) => (
           <MovieCard
-         
             uid={mov.id}
             image={`https://image.tmdb.org/t/p/w500${mov.poster_path}`}
             title={mov.original_title}
             overview={mov.overview}
-            bg={`https://image.tmdb.org/t/p/w500${mov.backdrop_path}`}
+            bg={`https://image.tmdb.org/t/p/original${mov.backdrop_path}`}
             genreids={mov.genre_ids}
             isShow={Type}
           />

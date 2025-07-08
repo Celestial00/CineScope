@@ -36,6 +36,8 @@ export default function Movie() {
     return genreMap[name] || null;
   };
 
+  console.log(allMovies);
+
   const filteredMovies = allMovies.filter((movie) => {
     const matchesGenre = filters.genre
       ? movie.genre_ids?.includes(getGenreId(filters.genre))
